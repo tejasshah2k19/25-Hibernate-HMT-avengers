@@ -37,7 +37,7 @@ public class StudentController {
 	public String listStudents(Model model) {
 
 		List<StudentEntity> students = studentRepository.findAll();
-		model.addAttribute("students",students);
+		model.addAttribute("students", students);
 		return "ListStudents";
 	}
 
@@ -46,7 +46,15 @@ public class StudentController {
 		studentRepository.deleteById(studentId);
 		return "redirect:/liststudents";
 	}
-	
 
-	
+	@PostMapping("search")
+	public String search(String firstName,Model model) {
+//		List<StudentEntity> students = studentRepository.findByFirstName(firstName);
+		List<StudentEntity> students = studentRepository.searchByFirstName("%"+firstName+"%");
+
+		model.addAttribute("students",students);
+
+		return "ListStudents";
+	}
+
 }
