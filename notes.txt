@@ -1,0 +1,20 @@
+C -> POP 
+C++ -> OOP 
+
+
+ORM -> object relational mapping 
+
+	class 	  -- table
+	variable  -- field,column
+	object    -- record 
+	 
+	
+table : users 
+class : UserEntity
+
+	userId : int : pk : AutoIncrement 
+	firstName
+	lastName
+	email
+	password
+	
