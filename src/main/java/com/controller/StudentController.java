@@ -1,6 +1,7 @@
 package com.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -51,10 +52,54 @@ public class StudentController {
 	public String search(String firstName,Model model) {
 //		List<StudentEntity> students = studentRepository.findByFirstName(firstName);
 		List<StudentEntity> students = studentRepository.searchByFirstName("%"+firstName+"%");
-
 		model.addAttribute("students",students);
-
 		return "ListStudents";
 	}
 
+	@GetMapping("editstudent")
+	public String editStudent(Integer studentId,Model model) {
+		Optional<StudentEntity> op =  studentRepository.findById(studentId);
+		if(op.isEmpty()) {
+			return "";
+		}else {
+			StudentEntity student  = op.get();	
+			model.addAttribute("student",student);
+		}
+		return "EditStudent";
+	}
+	
+	@PostMapping("updateStudent")
+	public String updateStudent(StudentEntity student) {
+		//student -> firstName lastName email studentId 
+		
+		StudentEntity dbStudent =  studentRepository.findById(student.getStudentId()).get();
+		
+		dbStudent.setFirstName(student.getFirstName());
+		dbStudent.setLastName(student.getLastName());
+		dbStudent.setEmail(student.getEmail());
+		
+		studentRepository.save(dbStudent);
+		//save 
+		//update students set firstName =? , lastName = ? , email = ? where studentId = ? 
+		
+		return "redirect:/liststudents";
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

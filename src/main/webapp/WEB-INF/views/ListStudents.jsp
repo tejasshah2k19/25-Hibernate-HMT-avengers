@@ -35,7 +35,9 @@
 						<tr>
 							<td>${s.firstName }</td>
 							<td>${s.lastName }</td>
-							<td><a href="deletestudent?studentId=${s.studentId}">Delete</a> | view </td>
+							<td><a href="deletestudent?studentId=${s.studentId}">Delete</a> | view |
+								<a href="editstudent?studentId=${s.studentId}">Edit</a>
+							 </td>
 						</tr>
 					</c:forEach>
 				</tbody>
